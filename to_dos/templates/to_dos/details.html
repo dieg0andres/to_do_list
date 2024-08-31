@@ -1,0 +1,102 @@
+{% extends "to_dos/base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-lg border-0 rounded-lg">
+                <div class="card-body">
+                    <h2 class="card-title mb-4 text-center text-dark">{{ to_do.title }}</h2>
+                    <p class="card-text text-secondary">{{ to_do.description }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating buttons -->
+    <a href="{% url 'delete_todo' to_do.id %}" class="btn btn-danger btn-circle btn-lg shadow slide-in-bottom"
+    style="position: fixed; bottom: 20px; right: 20px; z-index: 1000;">
+        D
+    </a>
+    <a href="{% url 'edit_todo' to_do.id %}" class="btn btn-warning btn-circle btn-lg shadow slide-in-bottom"
+    style="position: fixed; bottom: 90px; right: 20px; z-index: 1000;">
+        E
+    </a>
+</div>
+
+{% endblock %}
+
+<!-- Custom CSS for circular buttons and additional styling -->
+<style>
+    body {
+        background-color: #f8f9fa; /* Light background for modern look */
+    }
+
+    .card {
+        background-color: #ffffff; /* Pure white card */
+        border-radius: 12px; /* Softer rounded corners */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+    }
+
+    .card-title {
+        font-weight: 700; /* Bold title for emphasis */
+        font-size: 1.5rem; /* Slightly smaller than default h2 */
+    }
+
+    .card-text {
+        font-size: 1rem; /* Standard text size */
+        color: #6c757d; /* Muted text color for description */
+    }
+
+    .btn-circle {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%; /* Ensures the button is fully circular */
+        text-align: center;
+        padding: 0; /* Remove padding to ensure it's a perfect circle */
+        font-size: 24px;
+        line-height: 60px; /* Line height matches the height for perfect centering */
+        transition: transform 0.2s ease, box-shadow 0.2s ease; /* Smooth hover effect */
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .btn-circle:hover {
+        transform: scale(1.1); /* Slightly enlarges the button on hover */
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Increases shadow on hover for depth */
+    }
+
+    .btn-danger {
+        background-color: #dc3545; /* Standard Bootstrap danger color */
+        border-color: #dc3545;
+    }
+
+    .btn-warning {
+        background-color: #ffc107; /* Standard Bootstrap warning color */
+        border-color: #ffc107;
+    }
+
+    .btn-lg {
+        width: 60px; /* Ensure width and height are equal */
+        height: 60px;
+        font-size: 22px;
+    }
+
+    /* Animation for sliding in from the bottom */
+    @keyframes slideInBottom {
+        from {
+            transform: translateY(100%);
+            opacity: 0;
+        }
+        to {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+
+    .slide-in-bottom {
+        animation: slideInBottom 0.8s ease-out;
+        /* Animation duration and easing */
+    }
+</style>

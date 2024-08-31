@@ -1,0 +1,19 @@
+{% extends "to_dos/base.html" %}
+
+{% block content %}
+  <div class="container mt-5">
+    <h2 class="mb-4">Create a New To-Do</h2>
+    <form method="post" action="{% url 'new_todo' %}" class="needs-validation">
+      {% csrf_token %}
+      <div class="mb-3">
+        <label for="id_title" class="form-label">Title</label>
+        <input type="text" id="id_title" name="title" class="form-control">
+      </div>
+      <div class="mb-4">
+        <label for="id_description" class="form-label">Description</label>
+        <textarea id="id_description" name="description" class="form-control" rows="4"></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary">Create To-Do</button>
+    </form>
+  </div>
+{% endblock %}

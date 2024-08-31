@@ -1,0 +1,81 @@
+{% extends "to_dos/base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="mb-4"> {{ user.profile.tag_selected }} </h1>
+
+    {% if to_do_list %}
+    <form method="post" id="to_do_form">
+        {% csrf_token %}
+        <ul class="list-group">
+            {% for to_do in to_do_list %}
+            <li class="list-group-item d-flex align-items-center">
+                <input class="form-check-input me-2" type="radio" name="selected_to_do" value="{{ to_do.id }}"
+                    id="to_do_{{ to_do.id }}" onchange="document.getElementById('to_do_form').submit();">
+                <a href="{% url 'details' to_do.id %}" style="text-decoration:none; color:black;"
+                    class="flex-grow-1 d-block">
+                    {{ to_do.title }}
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+    </form>
+    {% else %}
+    <p>No to-do items</p>
+    {% endif %}
+
+    <!-- Floating Buttons -->
+    <a href="{% url 'new_todo' %}" class="btn btn-primary btn-lg rounded-circle position-fixed shadow slide-in-bottom"
+        style="bottom: 20px; right: 20px;">
+        +
+    </a>
+
+    {% if user.profile.tag_selected != 'home' %}
+
+        <a href="{% url 'delete_list' %}" class="btn btn-danger btn-lg rounded-circle position-fixed shadow slide-in-bottom"
+            style="bottom: 20px; left: 20px;">
+            -
+        </a>
+
+    {% endif %}
+</div>
+
+<style>
+    .position-fixed {
+        position: fixed !important;
+    }
+
+    .btn-lg.rounded-circle {
+        width: 60px;
+        height: 60px;
+        padding: 10px 16px;
+        font-size: 24px;
+        line-height: 1.33;
+        border-radius: 50%;
+        text-align: center;
+    }
+
+    /* Ensure the full width of the list item excluding the radio button is clickable */
+    .list-group-item a.d-block {
+        width: calc(100% - 2rem);
+        /* Adjusts width to exclude radio button and margin */
+    }
+
+    /* Animation for sliding in from the bottom */
+    @keyframes slideInBottom {
+        from {
+            transform: translateY(100%);
+            opacity: 0;
+        }
+        to {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+
+    .slide-in-bottom {
+        animation: slideInBottom 0.8s ease-out;
+        /* Animation duration and easing */
+    }
+</style>
+{% endblock %}
