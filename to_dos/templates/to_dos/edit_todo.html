@@ -16,7 +16,7 @@
       <button type="submit" class="btn btn-primary">Save changes</button>
     </form>
   </div>
-  <a href="{% url 'to_dos' request.user.profile.tag_selected %}" class="btn btn-primary rounded-circle btn-lg shadow" style="position: fixed; bottom: 90px; right: 20px;">
+  <a href="{% url 'to_dos' request.user.profile.selected_tag_unique_str %}" class="btn btn-primary rounded-circle btn-lg shadow" style="position: fixed; bottom: 90px; right: 20px;">
     H
   </a>
   <a href="{% url 'delete_todo' to_do.id %}" class="btn btn-danger rounded-circle btn-lg shadow" style="position: fixed; bottom: 20px; right: 20px;">

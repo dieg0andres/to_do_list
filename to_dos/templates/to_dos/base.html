@@ -24,9 +24,11 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
-            {% for tag in user.profile.tags %}
+            {% for tag in user.tags.all %}
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="{% url 'to_dos' tag %}">{{ tag }}</a>
+                <a class="nav-link active" aria-current="page" href="{% url 'to_dos' tag.unique_str %}">
+                  <span {% if tag.shared %} class= "text-primary" {% endif %}>{{ tag.name }}</span>
+                </a>
               </li>
             {% endfor %}
 

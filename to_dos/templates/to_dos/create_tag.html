@@ -6,20 +6,42 @@
         <div class="col-md-6">
             <div class="card">
                 <div class="card-header text-center">
-                    <h3>Create New List</h3>
+                    <h3>New List</h3>
                 </div>
+
                 <div class="card-body">
                     <form method="POST" action="{% url 'create_tag' %}">
                         {% csrf_token %}
                         <div class="mb-3">
-                            <label for="id_list_title" class="form-label">List Title</label>
-                            <input type="text" id="id_list_title" name="list_title" class="form-control" placeholder="Enter list title" required>
+                            <label for="id_list_title" class="form-label">Create a new list.  What title would you like?</label>
+                            <input type="text" id="id_list_title" name="list_title" class="form-control" placeholder="Enter title" required>
                         </div>
+
+                        <div class="mb-3" form-check>
+                            <input type="checkbox" class="form-check-input" id="id_shared" name="shared">
+                            <label class="form-check-label" for="id_shared">Share list</label>
+                        </div>
+
                         <div class="text-center">
                             <button type="submit" class="btn btn-primary">Create List</button>
                         </div>
                     </form>
                 </div>
+
+                <div class="card-body">
+                    <form method="POST" action="{% url 'access_tag' %}">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="id_list_title" class="form-label">or access a shared list by entering the 8-digit code:</label>
+                            <input type="text" id="id_list_title" name="tag_unique_str" class="form-control" placeholder="XXXX XXXX" required>
+                        </div>
+
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary">Access existing list</button>
+                        </div>
+                    </form>
+                </div>
+
             </div>
         </div>
     </div>

@@ -2,7 +2,11 @@
 
 {% block content %}
 <div class="container mt-5">
-    <h1 class="mb-4"> {{ user.profile.tag_selected }} </h1>
+    <h1 class="mb-4"> {{ current_tag.name }} </h1>
+    
+    {% if current_tag.shared %}
+        <p> Share this code for others to access this list: {{ tag_unique_str_with_space }}
+    {% endif %}  
 
     {% if to_do_list %}
     <form method="post" id="to_do_form">
@@ -30,7 +34,7 @@
         +
     </a>
 
-    {% if user.profile.tag_selected != 'home' %}
+    {% if current_tag.name != 'Home' %}
 
         <a href="{% url 'delete_list' %}" class="btn btn-danger btn-lg rounded-circle position-fixed shadow slide-in-bottom"
             style="bottom: 20px; left: 20px;">
