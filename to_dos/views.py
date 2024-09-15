@@ -100,7 +100,14 @@ def new_todo(request):
         )
         do_item.save()
         do_item.users.add(request.user)
-        
+
+        if tag.shared:
+            users = tag.users.all()
+
+            for user in users:
+                do_item.users.add(user)
+
+
         return redirect('to_dos', tag.unique_str)
 
     return render(request, "to_dos/new_todo.html")
@@ -204,8 +211,12 @@ def delete_list(request):
     old_tag = Tag.objects.get(unique_str = profile_user.selected_tag_unique_str)
 
     if old_tag.shared:
-        pass
-        #TODO: handle delete list/tag for shared lists
+        user_count = old_tag.users.count()
+        if user_count == 1:
+            old_tag.delete()
+        else:
+            old_tag.users.remove(request.user)
+
     else:
         Tag.objects.filter(unique_str = profile_user.selected_tag_unique_str).delete()  
     
