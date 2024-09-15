@@ -14,6 +14,7 @@ def create_unique_str():
 
 
 class Tag(models.Model):
+    print('test')
     name = models.CharField(max_length=50, default='Home')
     shared = models.BooleanField(default=False)
     users = models.ManyToManyField(User, related_name='tags')
