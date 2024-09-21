@@ -6,6 +6,7 @@ from django.conf import settings
 from django.shortcuts import redirect
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.models import User
+from django.utils.decorators import method_decorator
 
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
@@ -68,7 +69,7 @@ class SupportView(TemplateView):
 
         return context
     
-
+@method_decorator(csrf_exempt, name='dispatch')
 class CreateCheckoutSessionView(View):
 
     def post(self, request, *args, **kwargs):
