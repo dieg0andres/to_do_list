@@ -152,7 +152,11 @@ STRIPE_WEBHOOK_SECRET = config('STRIPE_WEBHOOK_SECRET')
 YOUR_DOMAIN = config('YOUR_DOMAIN')
 
 
-
+# SECURE COOKIES (used for stripe)
+if os.getenv('DJANGO_ENV') == 'production':
+    SECURE_SSL_REDIRECT = True
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
 
 
 
