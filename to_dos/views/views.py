@@ -7,8 +7,8 @@ from django.template import loader
 from django.core.mail import send_mail
 from django.conf import settings
 
-from .models import DoItem, ProfileUser, Tag
-from .forms import MyUserCreationForm, MyAuthenticationForm
+from ..models import DoItem, ProfileUser, Tag
+from ..forms import MyUserCreationForm, MyAuthenticationForm
 
 from django.contrib.auth import views as auth_views
 
@@ -57,7 +57,8 @@ def to_dos(request, tag_unique_str):
     context = {
         'to_do_list' : do_items,
         'current_tag' : current_tag,
-        'tag_unique_str_with_space' : add_middle_space(current_tag.unique_str)
+        'tag_unique_str_with_space' : add_middle_space(current_tag.unique_str),
+        'home_tag_unique_str' : request.user.tags.get(name='Home').unique_str
     }
     
     return render(request, "to_dos/to_dos.html", context)
@@ -68,7 +69,10 @@ def details(request, id):
     
     do_item = get_list_or_404(DoItem, pk=id)[0]
     tag = Tag.objects.get(unique_str=request.user.profile.selected_tag_unique_str)
-    context = {'to_do' : do_item }
+    context = {
+        'to_do' : do_item,
+        'home_tag_unique_str' : request.user.tags.get(name='Home').unique_str
+    }
 
     if request.method == 'POST':
         new_title = request.POST.get('title')
@@ -109,8 +113,9 @@ def new_todo(request):
 
 
         return redirect('to_dos', tag.unique_str)
-
-    return render(request, "to_dos/new_todo.html")
+    
+    home_tag_unique_str = request.user.tags.get(name='Home').unique_str
+    return render(request, 'to_dos/new_todo.html', {'home_tag_unique_str': home_tag_unique_str})
 
 
 @login_required
@@ -121,7 +126,8 @@ def edit_todo(request, id):
     
     context = {
         'to_do' : do_item,
-        'id' : id 
+        'id' : id,
+        'home_tag_unique_str' : request.user.tags.get(name='Home').unique_str
     }
 
     if request.method == 'POST':
@@ -201,8 +207,9 @@ def create_tag(request):
 
         return redirect('to_dos', tag.unique_str)
 
-    return render(request, 'to_dos/create_tag.html')
-
+    home_tag_unique_str = request.user.tags.get(name='Home').unique_str
+    return render(request, 'to_dos/create_tag.html', {'home_tag_unique_str': home_tag_unique_str})
+    
 
 @login_required
 def delete_list(request):

@@ -1,0 +1,19 @@
+{% extends "to_dos/base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <!-- Bootstrap Alert for Error Message -->
+    <div class="alert alert-danger text-center" role="alert">
+        <h2 class="alert-heading">Oh oh, something went wrong...</h2>
+        <p>Payment didn't go through... try again...</p>
+    </div>
+
+    <!-- Return Home Button -->
+    <div class="text-center">
+        <a href="{% url 'to_dos' home_tag_unique_str %}" class="btn btn-primary btn-lg">
+            Return to Home
+        </a>
+    </div>
+</div>
+{% endblock %}
+

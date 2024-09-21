@@ -1,0 +1,45 @@
+{% extends "to_dos/base.html" %}
+
+{% block content %}
+
+<div class="container mt-5">
+  <div class="product">
+    <div class="description">
+      <h3>Support us</h3>
+      <p>
+        Contribute to my efforts as I develop this app and others. Your support will go a long way.
+        I'm just a novice student trying to learn and figure this out. In return for your support,
+        you will get a nice Haiku! :)
+      </p>
+      <form action="/create-checkout-session/" method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+          <label for="amount">Select amount (USD):</label>
+          <select name="amount" id="amount" class="form-control">
+            <option value="100">$1.00</option>
+            <option value="200">$2.00</option>
+            <option value="300">$3.00</option>
+          </select>
+        </div>
+        <button type="submit" name='button_type' value='support' id="checkout-button" class="btn btn-primary mt-2">Support us</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="product mt-5">
+    <div class="description">
+      <h3>Upgrade</h3>
+      <h5>$5.00</h5>
+      <p>
+        By upgrading you will get access to new features as they are developed, such as: due dates,
+        dark mode, integration with calendar, etc.
+      </p>
+      <form action="/create-checkout-session/" method="POST">
+        {% csrf_token %}
+        <button type="submit" name='button_type' value='upgrade' id="upgrade-button" class="btn btn-success">Upgrade</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

@@ -1,7 +1,7 @@
 from django.contrib.auth import views as auth_views
 
 from django.urls import path
-from . import views
+from .views import views, stripe_views
 
 urlpatterns = [
     path('send-test-email', views.send_test_email),
@@ -20,4 +20,9 @@ urlpatterns = [
     path('password_reset/done/', auth_views.PasswordResetDoneView.as_view(template_name='registration/my_password_reset_done.html'), name='password_reset_done'),
     path('reset/<uidb64>/<token>', views.CustomPasswordResetConfirmView.as_view(), name='password_reset_confirm'),
     path('reset/done/', auth_views.PasswordResetCompleteView.as_view(template_name='registration/my_password_reset_complete.html'), name='password_reset_complete'),   
+    path('support/', stripe_views.SupportView.as_view(), name='support'),
+    path('create-checkout-session/', stripe_views.CreateCheckoutSessionView.as_view(), name='create_checkout_session'),
+    path('success/', stripe_views.SuccessView.as_view(), name='success'),
+    path('cancel/', stripe_views.CancelView.as_view(), name='cancel'),
+    path('stripe_webhook/', stripe_views.stripe_webhook_view, name='stripe_webhook'),
 ]

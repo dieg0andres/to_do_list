@@ -14,7 +14,6 @@ def create_unique_str():
 
 
 class Tag(models.Model):
-    print('test')
     name = models.CharField(max_length=50, default='Home')
     shared = models.BooleanField(default=False)
     users = models.ManyToManyField(User, related_name='tags')
@@ -38,6 +37,9 @@ class DoItem(models.Model):
 class ProfileUser(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
     selected_tag_unique_str = models.CharField(max_length=8)
+    upgraded = models.BooleanField(default=False)
+    supported = models.BooleanField(default=False)
+    amount_supported = models.IntegerField(default=0)
 
 
     def __str__(self):

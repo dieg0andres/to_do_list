@@ -1,0 +1,42 @@
+{% extends "to_dos/base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <!-- Payment Success Alert -->
+    <div class="alert alert-success text-center" role="alert">
+        <h2 class="alert-heading">Payment Successful!</h2>
+    </div>
+
+    {% if metadata.product_name == 'Support' %}
+        <!-- Support Card -->
+        <div class="card mb-4 shadow-sm">
+            <div class="card-body">
+                <h4 class="card-title text-center">Thank you for your Support!</h4>
+                <p class="card-text text-center">Here is your haiku:</p>
+                <blockquote class="blockquote text-center">
+                    <p class="mb-0">
+                        Guiding hands reach out,<br>
+                        Dreams unfold with each new step,<br>
+                        Growth blooms in bright light.
+                    </p>
+                </blockquote>
+            </div>
+        </div>
+    {% elif metadata.product_name == 'Upgrade' %}
+        <!-- Upgrade Card -->
+        <div class="card mb-4 shadow-sm">
+            <div class="card-body text-center">
+                <h4 class="card-title">Thank you for upgrading!</h4>
+                <p class="card-text">Hope you enjoy the added features.</p>
+            </div>
+        </div>
+    {% endif %}
+
+    <!-- Return Home Button -->
+    <div class="text-center">
+        <a href="{% url 'to_dos' home_tag_unique_str %}" class="btn btn-primary btn-lg">
+            Return to Home
+        </a>
+    </div>
+</div>
+{% endblock %}
