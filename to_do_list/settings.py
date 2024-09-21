@@ -12,24 +12,16 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 import os
 import dj_database_url
+from decouple import config
 from pathlib import Path
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
+
 BASE_DIR = Path(__file__).resolve().parent.parent
+SECRET_KEY = config('SECRET_KEY')
+DEBUG = config('DEBUG', default=False, cast=bool)
 
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-)8495zf1--mw0+eaiq-5iypw!3$jia^&z(bs%kkd)f66p8n3li'
-
-# SECURITY WARNING: don't run with debug turned on in production!
 # set up for HEROKU
 IS_HEROKU_APP = "DYNO" in os.environ and not "CI" in os.environ
-
-if not IS_HEROKU_APP:
-    DEBUG = True
 
 if IS_HEROKU_APP:
     ALLOWED_HOSTS = ['*', 'todolists.me', 'www.todolists.me']
