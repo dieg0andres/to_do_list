@@ -9,6 +9,7 @@ gunicorn==23.0.0
 idna==3.8
 packaging==24.1
 psycopg2-binary==2.9.9
+python-decouple==3.8
 python-http-client==3.3.7
 requests==2.32.3
 sendgrid==6.11.0
