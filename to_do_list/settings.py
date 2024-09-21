@@ -20,6 +20,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = config('SECRET_KEY')
 DEBUG = config('DEBUG', default=False, cast=bool)
 
+
 # set up for HEROKU
 IS_HEROKU_APP = "DYNO" in os.environ and not "CI" in os.environ
 
@@ -161,11 +162,10 @@ if os.getenv('DJANGO_ENV') == 'production':
 
 
 # set up email services
-if os.getenv('DJANGO_ENV') == 'production':
-    pass
-else:
-    pass
-    #EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-    #DEFAULT_FROM_EMAIL = 'diego.a.galindo@gmail.com'  # Sender email in the password reset email
-    #EMAIL_HOST_USER = 'diego.a.galindo@gmail.com'  # Your email address
-
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST = config('EMAIL_HOST')
+EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL')

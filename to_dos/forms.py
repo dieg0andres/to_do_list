@@ -34,6 +34,8 @@ class MyUserCreationForm(UserCreationForm):
             user.save()
         return user
     
+    
+    
 class MyAuthenticationForm(AuthenticationForm):
 
     email = forms.EmailField(required=True, label="Email")
